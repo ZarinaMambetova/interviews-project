@@ -1,41 +1,74 @@
-<template>
-<app-menubar :model="items" class="menu">
-    <template #item="{item, props}">
-        <router-link v-ripple  :to="item.path" class="flex items-center" v-bind="props.action">
-            <span :class="item.icon" class="p-menuitem-icon"></span>
-            <span class="ml-2">{{ item.label }}</span>
-        </router-link>
-    </template>
-</app-menubar>
-</template>
-
 <script setup lang="ts">
 import {
-  ref
+  ref, computed
 } from "vue";
+import type { ComputedRef } from "vue";
+import { useUserStore } from "@/stores/user"
+import { getAuth, signOut } from 'firebase/auth'
+import { useRouter } from 'vue-router'
 
+const userStore = useUserStore()
+const router = useRouter()
+
+interface IMenuItem {
+  label: string,
+  icon: string,
+  path: string,
+  show: ComputedRef<boolean>
+}
 const items = ref([{
     label: 'Авторизация',
     icon: 'pi pi-user',
-    path: '/auth'
+  path: '/auth',
+    show: computed((): boolean => !userStore.userId)
   },
   {
     label: 'Добавить',
     icon: 'pi pi-plus',
-    path: '/'
+    path: '/',
+    show: computed((): boolean => !!userStore.userId)
   },
   {
     label: 'Список собеседований',
     icon: 'pi pi-list',
-    path: '/auth'
+    path: '/list',
+    show: computed((): boolean => !!userStore.userId)
   },
   {
     label: 'Статистика',
     icon: 'pi pi-chart-pie',
-    path: '/statistic'
+    path: '/statistic',
+    show: computed((): boolean => !!userStore.userId)
   },
 ])
+
+const signOutMethod = async (): Promise<void> => {
+  await signOut(getAuth())
+  router.push('/auth')
+}
 </script>
+
+<template>
+<app-menubar :model="items" class="menu">
+  
+    <template #item="{item, props}">
+      <template v-if="item.show">
+        <router-link  :to="item.path" class="flex items-center" v-bind="props.action">
+            <span :class="item.icon" class="p-menuitem-icon"></span>
+            <span class="ml-2">{{ item.label }}</span>
+        </router-link>
+      </template>
+    </template>
+
+    <template #end>
+      <span v-if="userStore.userId" @click="signOutMethod" class="flex items-center menu-exit">
+        <span class="pi pi-sign-out p-p-menuitem-icon"></span>
+        <span class="ml-2">Выход</span>
+      </span>
+    </template>
+
+</app-menubar>
+</template>
 
 <style scoped>
 .menu {
