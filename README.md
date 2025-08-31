@@ -2,6 +2,12 @@
 
 vue, typescript, pinia project for learning
 
+## Посмотреть проект можно по ссылке:
+
+https://zarinamambetova.github.io/interviews-project/auth
+
+Используйте для входа для тестирования  логин: test@test.ru пароль: 123456
+
 This template should help get you started developing with Vue 3 in Vite.
 
 ## Recommended IDE Setup
