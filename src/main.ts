@@ -26,7 +26,9 @@ import Column from 'primevue/column';
 import Badge from 'primevue/badge';
 import InputNumber from 'primevue/inputnumber';
 import Calendar from 'primevue/calendar';
-import Textarea from 'primevue/textarea'
+import Textarea from 'primevue/textarea';
+import Tooltip from 'primevue/tooltip';
+import Chart from 'primevue/chart';
 
 
 import App from './App.vue';
@@ -56,6 +58,7 @@ app.use(PrimeVue, {
         preset: Aura
     }
 });
+app.directive('tooltip', Tooltip)
 
 app.component('app-menubar', Menubar);
 app.component('app-button', Button);
@@ -71,6 +74,7 @@ app.component('app-column', Column);
 app.component('app-badge', Badge);
 app.component('app-input-number', InputNumber);
 app.component('app-calendar', Calendar);
-app.component('app-textarea', Textarea)
+app.component('app-textarea', Textarea);
+app.component('app-chart', Chart)
 
 app.mount('#app');

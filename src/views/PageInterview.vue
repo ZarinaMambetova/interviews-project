@@ -36,7 +36,6 @@ const getData = async (): Promise<void> => {
   }
 
   isLoading.value = false
-  console.log(interview.value)
 }
 
 const saveInterview = async (): Promise<void> => {
