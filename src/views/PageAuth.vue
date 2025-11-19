@@ -1,16 +1,16 @@
 <script setup lang="ts">
-import { getAuth, createUserWithEmailAndPassword, signInWithEmailAndPassword } from 'firebase/auth';
-import { computed, ref } from 'vue';
-import { useToast } from 'primevue/usetoast';
-import { useRouter } from 'vue-router';
+import { getAuth, createUserWithEmailAndPassword, signInWithEmailAndPassword } from 'firebase/auth'
+import { computed, ref } from 'vue'
+import { useToast } from 'primevue/usetoast'
+import { useRouter } from 'vue-router'
 
-const toast = useToast();
+const toast = useToast()
 
-const email = ref<string>('');
-const password = ref<string>('');
-const isLogin = ref<boolean>(true);
-const isLoading = ref<boolean>(false);
-const router = useRouter();
+const email = ref<string>('test@test.ru')
+const password = ref<string>('123456')
+const isLogin = ref<boolean>(true)
+const isLoading = ref<boolean>(false)
+const router = useRouter()
 
 const toggleAuth = () => {
   isLogin.value = !isLogin.value
@@ -66,7 +66,7 @@ const submitForm = (): void => {
 </script>
 
 <template>
-<app-toast position="bottom-right" />
+  <app-toast position="bottom-right" />
   <div class="flex justify-content-center p-2">
     <div class="surface-card p-4 shadow-2 border-round w-full lg:w-6">
       <div class="text-center mb-3">
